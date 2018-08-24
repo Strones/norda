@@ -1,0 +1,137 @@
+.background {
+  viewport-fill: black;
+}
+
+#hourLabel {
+  font-size: 140;
+  font-family: Fabrikat-Black;
+  text-length: 32;
+  text-anchor: middle;
+  x: 77%;
+  y: 45%;
+  fill: white; 
+}
+
+#minuteLabel{
+  font-size: 140;
+  font-family: Fabrikat-Black;
+  text-length: 32;
+  text-anchor: middle;
+  x: 77%;
+  y: 95%;
+  fill: white;
+}
+
+#hrLabel {
+  font-size: 30;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: start;
+  x: $+1%;
+  y: $-2.5%;
+  fill: white;
+}
+
+#stepsLabel {
+  font-size: 30;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: start;
+  x: $+1%;
+  y: $-2.5%;
+  fill: white;
+}
+
+
+#distanceLabel {
+  font-size: 30;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: start;
+  x: $+1%;
+  y: $-2.5%;
+  fill: white;
+}
+
+#distanceUnitLabel {
+  font-size: 20;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: start;
+  x: $+1%;
+  y: 43%;
+  fill: white;
+}
+
+#activeLabel {
+  font-size: 30;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: start;
+  x: $+1%;
+  y: $-2.5%;
+  fill: white;
+}
+
+#currentWeatherLabel {
+  font-size: 30;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: start;
+  x: 2%;
+  y: 95%;
+  fill: white;
+}
+
+#lowLabel {
+  font-size: 25;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: start;
+  x: $+1%;
+  y: $-1%;
+  fill: white;
+}
+
+#highLabel {
+  font-size: 25;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: start;
+  x: $+1%;
+  y: $-1%;
+  fill: white;
+}
+
+#dayLabel {
+  font-size: 35;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  x: 45%;
+  y: 15%;
+  fill: white;
+}
+
+#dateLabel {
+  font-size: 35;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  x: 45%;
+  y: 29%;
+  fill: white;
+}
+
+#batteryLabel {
+  font-size: 35;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: start;
+  x: $+1%;
+  y: $+0%;
+  fill: white;
+}
+
+
+

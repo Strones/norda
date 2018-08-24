@@ -1,0 +1,60 @@
+<svg class="background"> 
+ <svg>
+  <rect x="0"   y="0" width="51%" height="100%" fill="#A9A9A9" id="leftBackground"   />
+  <rect x="51%" y="0" width="49%" height="100%" fill="#696969" id = "rightBackground"/>
+  <rect x="0%" y="0" width="53%" height="100%" id = "touchArea" opacity="0.0" pointer-events="visible"/>
+
+</svg>
+  
+  <text id="hourLabel"  />
+  <text id="minuteLabel"   />
+  
+  <svg viewport-fill="#696969">
+  <image x="1%" y="5%" width="28" height="28" href="heart.png" load="sync" id="heart" />
+    <text id="hrLabel"/>
+  </svg>
+  
+  
+    <svg viewport-fill="#696969">
+  <image x="1%" y="20%" width="28" height="28" href="steps.png" load="sync" id="steps" />
+    <text id="stepsLabel"/>
+  </svg>
+  
+    <svg viewport-fill="#696969">
+  <image x="1%" y="35%" width="28" height="28" href="dist.png" load="sync" id="dist" />
+    <text id="distanceLabel"/>
+      <text id="distanceUnitLabel"/>
+  </svg>
+  
+      <svg viewport-fill="#696969">
+  <image x="1%" y="50%" width="28" height="28" href="active.png" load="sync" id="bolt" />
+    <text id="activeLabel"/>     
+  </svg>
+  
+  
+        
+     <svg viewport-fill="#696969">
+  <image x="-4%" y="57%" width="85" height="85" href="weather1.png" load="sync" pointer-events="visible" id="cloud" />   
+  </svg>
+   <text id="currentWeatherLabel" />
+  
+      <svg viewport-fill="#696969">
+  <image x="25%" y="72%" width="22" height="22" href="high.png" load="sync" id="high" />
+    <text id="highLabel"/>>
+  </svg>
+  
+      <svg viewport-fill="#696969">
+  <image x="25%" y="87%" width="22" height="22" href="low.png" load="sync" id="low" />
+    <text id="lowLabel"/>>
+  </svg>
+  <text id="dayLabel"/>
+   <text id="dateLabel"/>
+   <svg viewport-fill="#696969">
+     
+     <image x="25%" y="50%" width="25" height="25" href="battery.png" load="sync" id="battery" />
+   
+ <text id="batteryLabel"/>
+  
+    </svg>
+  
+</svg>
