@@ -128,13 +128,13 @@ let settingsread = fs.readFileSync("settings.txt", "cbor");
   white = settingsread.white;
   extremes = settingsread.extremes;
 
-  g_sunriseHours = settingsread.g_sunriseHours;
-  g_sunriseMinutes = settingsread.g_sunriseMinutes;
-  g_sunsetHours = settingsread.g_sunsetHours;
-  g_sunsetMinutes= settingsread.g_sunsetMinutes;
-  g_tempLow = settingsread.g_tempLow;
-  g_tempHigh = settingsread.g_tempHigh;
-  g_currentWeather = settingsread.g_currentWeather;
+  g_sunriseHours = settingsread.g_sunriseHours || "--";
+  g_sunriseMinutes = settingsread.g_sunriseMinutes || "--";
+  g_sunsetHours = settingsread.g_sunsetHours || "--";
+  g_sunsetMinutes= settingsread.g_sunsetMinutes || "--";
+  g_tempLow = settingsread.g_tempLow || "--";
+  g_tempHigh = settingsread.g_tempHigh || "--";
+  g_currentWeather = settingsread.g_currentWeather || "--";
   
 
 
