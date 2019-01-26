@@ -6,8 +6,7 @@ import { WEATHER_MESSAGE_KEY, Conditions, mapping_codes } from './common.js';
 export default class Weather {
   
   constructor() {
-    this._apiKey = '';
-    this._provider = 'owm';
+    this._apiKey = 'c580c713b44a11293d5d48dca217d843';
     this._feelsLike = true;
     this._weather = undefined;
     this._maximumAge = 0;
