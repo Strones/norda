@@ -5,10 +5,9 @@ export default class Weather {
   
   constructor() {
     this._apiKey = '';
-    this._provider = 'yahoo';
     this._feelsLike = true;
     this._weather = undefined;
-    this._maximumAge = 0;
+    this._maximumAge = 6 * 60 * 60 * 1000;
 
     this.onerror = undefined;
     this.onsuccess = undefined;
