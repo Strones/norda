@@ -6,7 +6,7 @@ import { WEATHER_MESSAGE_KEY, Conditions, mapping_codes } from './common.js';
 export default class Weather {
   
   constructor() {
-    this._apiKey = 'c580c713b44a11293d5d48dca217d843';
+    this._apiKey = undefined;
     this._feelsLike = true;
     this._weather = undefined;
     this._maximumAge = 0;
@@ -71,7 +71,7 @@ export default class Weather {
 function prv_fetchRemote(provider, apiKey, feelsLike) {
   geolocation.getCurrentPosition(
     (position) => {
-      prv_fetch(provider, apiKey, feelsLike, position.coords.latitude, position.coords.longitude,
+      prv_fetch(provider, feelsLike, position.coords.latitude, position.coords.longitude,
           (data) => {
             if (peerSocket.readyState === peerSocket.OPEN) {
               let answer = {};
@@ -106,24 +106,19 @@ function prv_fetchRemote(provider, apiKey, feelsLike) {
     {"enableHighAccuracy" : false, "maximumAge" : 1000 * 1800});
 }
 
-function prv_fetch(provider, apiKey, feelsLike, latitude, longitude, success, error) {
-    const url = 'https://api.openweathermap.org/data/2.5/weather?appid=' + apiKey + '&lat=' + latitude + '&lon=' + longitude;
-    console.log(url);
+function prv_fetch(provider, feelsLike, latitude, longitude, success, error) {
+    const url = 'https://iot.meexle.com/fitbit/weather?lat=' + latitude + '&lon=' + longitude;
     fetch(encodeURI(url))
       .then(response => response.json())
       .then(data => {
 
         if (data.weather === undefined) {
           error(data.message);
-          console.log('rejecting undefined weather');
           return
         } 
-        console.log(data);
+        //console.log(data);
         let conditionId = data.weather[0].id
-        console.log('condition id 1: ' + conditionId);
-        console.log('mapping condition: ' + mapping_codes[600]);
         let condition = mapping_codes[conditionId];
-        console.log('condition 2: ' + condition + ':' + conditionId);
         let weather = {
           temperatureC: data.main.temp - 273.15,
           temperatureF: (data.main.temp - 273.15) * 9 / 5 + 32,
@@ -134,8 +129,8 @@ function prv_fetch(provider, apiKey, feelsLike, latitude, longitude, success, er
           realConditionCode: data.weather[0].id,
           sunrise: data.sys.sunrise * 1000,
           sunset: data.sys.sunset * 1000,
-          tempLow : data.main.temp_min - 273.15,
-          tempHigh : data.main.temp_min - 273.15
+          tempLow : data.main.humidity,
+          tempHigh : data.main.pressure * 0.75006
         }
 
         // Send the weather data to the device

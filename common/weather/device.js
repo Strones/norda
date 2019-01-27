@@ -4,7 +4,7 @@ import { WEATHER_MESSAGE_KEY } from './common.js';
 export default class Weather {
   
   constructor() {
-    this._apiKey = '';
+    this._apiKey = undefined;
     this._feelsLike = true;
     this._weather = undefined;
     this._maximumAge = 6 * 60 * 60 * 1000;
