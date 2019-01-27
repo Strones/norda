@@ -1,0 +1,4 @@
+#these are files we don't want to track
+node_modules/
+*-lock.json
+build/

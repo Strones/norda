@@ -158,9 +158,7 @@ let distanceUnit = settingsread.distanceUnit || 0;
 let temperatureUnit = settingsread.temperatureUnit || 0;
 let extremes = settingsread.extremes || 0;
 
-
 //ifWeather();
-
 
 hourElement.style.fill = hourCol;
 minuteElement.style.fill = minuteCol;
@@ -185,19 +183,7 @@ stepsElement.text ="--";
 distanceElement.text ="--";
 batteryElement.text = "--";
 
-
-
-
-// Set the provider : yahoo / owm / wunderground / darksky
-weather.setProvider("yahoo"); 
-// set your api key
-weather.setApiKey("mykey");
-// set the maximum age of the data
-weather.setMaximumAge(50 * 1000); 
-
 let tempVar = true;
-
-
 
 weather.onsuccess = (data) => {
   let sunriseData = new Date(data.sunrise);
@@ -244,9 +230,9 @@ weather.onerror = (error) => {
   stepsElement.text= `${today.adjusted.steps}`;
   activeElement.text = `${today.adjusted.activeMinutes}`;
    
-    messaging.peerSocket.onopen = function() {
-  // Fetch the weather every 15 sec
-  setInterval(() => weather.fetch(), 30 * 1000);
+  messaging.peerSocket.onopen = function() {
+  // Fetch the weather every 3 hours
+  setInterval(() => weather.fetch(),3 * 60 * 60 * 1000);
   weather.fetch();
 }
   }
@@ -566,8 +552,8 @@ function weatherCheck(){
     settings.g_tempLow = g_tempLow;
     settings.g_currentWeather = g_currentWeather;
   }else{
-    highElement.text = g_tempHigh +"°C";
-    lowElement.text = g_tempLow +"°C";
+    highElement.text = g_tempHigh +"mm";
+    lowElement.text = g_tempLow +"%";
     currentWeatherElement.text = g_currentWeather+"°C";
     settings.g_tempHigh =  g_tempHigh;
     settings.g_tempLow = g_tempLow;
