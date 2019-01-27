@@ -231,8 +231,8 @@ weather.onerror = (error) => {
   activeElement.text = `${today.adjusted.activeMinutes}`;
    
   messaging.peerSocket.onopen = function() {
-  // Fetch the weather every 15 sec
-  setInterval(() => weather.fetch(), 5 * 60 * 1000);
+  // Fetch the weather every 3 hours
+  setInterval(() => weather.fetch(),3 * 60 * 60 * 1000);
   weather.fetch();
 }
   }
