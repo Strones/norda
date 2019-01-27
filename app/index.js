@@ -552,8 +552,8 @@ function weatherCheck(){
     settings.g_tempLow = g_tempLow;
     settings.g_currentWeather = g_currentWeather;
   }else{
-    highElement.text = g_tempHigh +"°C";
-    lowElement.text = g_tempLow +"°C";
+    highElement.text = g_tempHigh +"mm";
+    lowElement.text = g_tempLow +"%";
     currentWeatherElement.text = g_currentWeather+"°C";
     settings.g_tempHigh =  g_tempHigh;
     settings.g_tempLow = g_tempLow;
