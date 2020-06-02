@@ -34,7 +34,7 @@
   
         
      <svg viewport-fill="#696969">
-  <image x="-4%" y="57%" width="85" height="85" href="weather1.png" load="sync" pointer-events="visible" id="cloud" />   
+  <image x="0%" y="62%" width="60" height="60" href="sun_and_cloud.png" load="sync" pointer-events="visible" id="currentWeatherIcon" />   
   </svg>
    <text id="currentWeatherLabel" />
   

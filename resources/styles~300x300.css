@@ -19,7 +19,7 @@
   text-anchor: middle;
   x: 77%;
   y: 97%;
-  fill: white;
+  fill: white; 
 }
 
 #hrLabel {
@@ -28,7 +28,7 @@
   text-length: 32;
   text-anchor: start;
   x: $+1%;
-  y: $-2.5%;
+  y: 13%;
   fill: white;
 }
 
@@ -38,7 +38,7 @@
   text-length: 32;
   text-anchor: start;
   x: $+1%;
-  y: $-2.5%;
+  y: 28%;
   fill: white;
 }
 
@@ -49,7 +49,7 @@
   text-length: 32;
   text-anchor: start;
   x: $+1%;
-  y: $-2.5%;
+  y: 43%;
   fill: white;
 }
 
@@ -69,7 +69,7 @@
   text-length: 32;
   text-anchor: start;
   x: $+1%;
-  y: $-2.5%;
+  y: 58%;
   fill: white;
 }
 
@@ -88,8 +88,8 @@
   font-family: Fabrikat-Bold;
   text-length: 32;
   text-anchor: start;
-  x: $+1%;
-  y: $-1%;
+  x: $;
+  y: 94%;
   fill: white;
 }
 
@@ -98,8 +98,8 @@
   font-family: Fabrikat-Bold;
   text-length: 32;
   text-anchor: start;
-  x: $+1%;
-  y: $-1%;
+  x: $;
+  y: 79%;
   fill: white;
 }
 
@@ -128,8 +128,8 @@
   font-family: Fabrikat-Bold;
   text-length: 32;
   text-anchor: start;
-  x: $+1%;
-  y: $+0%;
+  x: $+0%;
+  y: 58%;
   fill: white;
 }
 

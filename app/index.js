@@ -14,7 +14,7 @@ import { me } from "appbit";
 
 
 // Update fthe clock every minute
-clock.granularity = "minutes";
+clock.granularity = "seconds";
 
 //create objects
 let weather = new Weather();
@@ -39,7 +39,6 @@ let dayElement = document.getElementById("dayLabel");
 let leftBackgroundElement = document.getElementById("leftBackground");
 let rightBackgroundElement = document.getElementById("rightBackground");  
 let batteryElement = document.getElementById("batteryLabel");
-let cloud = document.getElementById("cloud");
 let touchArea = document.getElementById("touchArea");
 
 
@@ -51,6 +50,7 @@ let high = document.getElementById("high");
 let heart = document.getElementById("heart");
 let low = document.getElementById("low");
 let steps = document.getElementById("steps");
+let weatherIcon = document.getElementById("currentWeatherIcon");
 
 //g_variables
 let g_sunriseHours = "--";
@@ -60,6 +60,7 @@ let g_sunsetMinutes = "--";
 let g_tempLow = "-";
 let g_tempHigh = "-";
 let g_currentWeather = "-";
+let g_currentCondition = 1;
 
 
 try {
@@ -100,6 +101,7 @@ try {
   settings.g_sunriseMinutes = "--";
   settings.g_tempLow = "--";
   settings.g_tempHigh = "--";
+  settings.g_currentCondition = 0;
   settings.extremes = 0;
 
 
@@ -135,6 +137,7 @@ let settingsread = fs.readFileSync("settings.txt", "cbor");
   g_tempLow = settingsread.g_tempLow || "--";
   g_tempHigh = settingsread.g_tempHigh || "--";
   g_currentWeather = settingsread.g_currentWeather || "--";
+  g_currentCondition  = settingsread.g_currentCondition || 0;
   
 
 
@@ -158,9 +161,7 @@ let distanceUnit = settingsread.distanceUnit || 0;
 let temperatureUnit = settingsread.temperatureUnit || 0;
 let extremes = settingsread.extremes || 0;
 
-
 //ifWeather();
-
 
 hourElement.style.fill = hourCol;
 minuteElement.style.fill = minuteCol;
@@ -185,25 +186,12 @@ stepsElement.text ="--";
 distanceElement.text ="--";
 batteryElement.text = "--";
 
-
-
-
-// Set the provider : yahoo / owm / wunderground / darksky
-weather.setProvider("yahoo"); 
-// set your api key
-weather.setApiKey("mykey");
-// set the maximum age of the data
-weather.setMaximumAge(50 * 1000); 
-
 let tempVar = true;
-
-
 
 weather.onsuccess = (data) => {
   let sunriseData = new Date(data.sunrise);
   let sunsetData = new Date(data.sunset);
-
-     
+    
         g_sunriseHours= sunriseData.getHours();
         g_sunriseMinutes = sunriseData.getMinutes();
   
@@ -214,17 +202,12 @@ weather.onsuccess = (data) => {
         g_tempHigh = data.tempHigh.toFixed(0);
   
         g_currentWeather = data.temperatureC.toFixed(0);
-
+        g_currentCondition = data.conditionCode;
 } 
-
-
 
 weather.onerror = (error) => {
   console.log("Weather error " + JSON.stringify(error));
 }
-
-
-
 
  function updateStats(){
    
@@ -244,9 +227,9 @@ weather.onerror = (error) => {
   stepsElement.text= `${today.adjusted.steps}`;
   activeElement.text = `${today.adjusted.activeMinutes}`;
    
-    messaging.peerSocket.onopen = function() {
-  // Fetch the weather every 15 sec
-  setInterval(() => weather.fetch(), 30 * 1000);
+  messaging.peerSocket.onopen = function() {
+  // Fetch the weather every 3 hours
+  setInterval(() => weather.fetch(),3 * 60 * 60 * 1000);
   weather.fetch();
 }
   }
@@ -258,7 +241,7 @@ weather.onerror = (error) => {
 updateStats();
 clock.ontick = () => updateClock();
 
-cloud.onclick = function(e) {
+weatherIcon.onclick = function(e) {
     if(extremes == 1){
     extremes = 0;
     weatherCheck();
@@ -340,16 +323,13 @@ messaging.peerSocket.onmessage = function(evt) {
      }else{
       white = 0;
      }
-  
-    
+     
   }
     if(evt.data.key == "hourColor"){     
-      hourElement.style.fill = evt.data.value;
-    
+      hourElement.style.fill = evt.data.value;    
   }
   if(evt.data.key == "activeColor"){     
-      activeElement.style.fill = evt.data.value;
-    
+      activeElement.style.fill = evt.data.value;    
   }
    if(evt.data.key == "batteryColor"){     
       batteryElement.style.fill = evt.data.value;
@@ -358,64 +338,42 @@ messaging.peerSocket.onmessage = function(evt) {
   if(evt.data.key == "weatherColor"){     
       lowElement.style.fill = evt.data.value;
       highElement.style.fill = evt.data.value;
-      currentWeatherElement.style.fill = evt.data.value;
-    
+      currentWeatherElement.style.fill = evt.data.value;    
   }
   if(evt.data.key == "minuteColor"){
-     minuteElement.style.fill = evt.data.value;
-    
+     minuteElement.style.fill = evt.data.value;    
   }
   if(evt.data.key == "hrColor"){
-    hrElement.style.fill =evt.data.value;
-    
-
+    hrElement.style.fill =evt.data.value;    
   }
   
   if(evt.data.key == "stepsColor"){
-    stepsElement.style.fill = evt.data.value;
-   
-   
+    stepsElement.style.fill = evt.data.value;      
   }
   
   if(evt.data.key == "distanceColor"){
-    distanceElement.style.fill = evt.data.value;
-    
-  
+    distanceElement.style.fill = evt.data.value;      
   }
   
   if(evt.data.key =="dateColor"){
-    dateElement.style.fill = evt.data.value;
-    
-   
+    dateElement.style.fill = evt.data.value;   
   }
   
   if(evt.data.key =="leftBackgroundColor"){
     leftBackgroundElement.style.fill = evt.data.value;
-   console.log(evt.data.value);
-   
+   console.log(evt.data.value);   
   }
   
    if(evt.data.key =="rightBackgroundColor"){
-    rightBackgroundElement.style.fill = evt.data.value;
-
-     
+    rightBackgroundElement.style.fill = evt.data.value;   
   }
   
    if(evt.data.key =="dayColor"){
     dayElement.style.fill = evt.data.value;
-      console.log(evt.data.value);
- 
-   
-  }
-  
-  
-  
-  
+      console.log(evt.data.value);   
+  }    
   else{}
-
-  saveIt(evt);
-
-  
+  saveIt(evt);  
 }  
 
 
@@ -455,8 +413,6 @@ function saveIt(element) {
      }else{
         settings.toggle = 0;
      }
-  
-
   }
      if(element.data.key == "white"){
      if(element.data.value == true){
@@ -464,8 +420,6 @@ function saveIt(element) {
      }else{
         settings.white = 0;
      }
-  
-
   }
    if(element.data.key == "activeColor"){
    settings.active = element.data.value;
@@ -474,82 +428,36 @@ function saveIt(element) {
    if(element.data.key == "weatherColor"){
     settings.weather = element.data.value;
     
-  }
-  
+  }  
   if(element.data.key == "minuteColor"){
-    settings.minute = element.data.value;
-    
+    settings.minute = element.data.value;    
   }
   
   if(element.data.key == "batteryColor"){
-    settings.battery = element.data.value;
-    
-  }
-  
+    settings.battery = element.data.value;    
+  } 
   if(element.data.key == "hrColor"){
     settings.hr = element.data.value;
-    
-
-
-
-    
-
-  }
-  
+  }  
   if(element.data.key == "stepsColor"){
     settings.steps = element.data.value;
-    
-
-    
-
-  }
-  
+  }  
   if(element.data.key == "distanceColor"){
     settings.distance = element.data.value;
-    
-
-
-
-
-  }
-  
+  }  
   if(element.data.key == "dateColor"){
     settings.date = element.data.value;
-    
-
-
-
-  }
-  
+  }  
   if(element.data.key == "leftBackgroundColor"){
     settings.leftBackground = element.data.value;
-    
-
-
-
-  }
-  
+  }  
   if(element.data.key == "rightBackgroundColor"){
     settings.rightBackground = element.data.value; 
-    
-
-
-
-
-  }
-  
-  
+  }    
   if(element.data.key == "dayColor"){
     settings.day = element.data.value;
-    
-
-
-  }
-  
-
+  }  
   else{}
-  
-
 }
 
 
@@ -562,16 +470,18 @@ function weatherCheck(){
    highElement.text = (g_tempHigh * 9/5 +32).toFixed(0)+"°F";
    lowElement.text = (g_tempLow * 9/5 +32).toFixed(0)+"°F";
    currentWeatherElement.text = (g_currentWeather* 9/5 +32).toFixed(0)+"°F";
-    settings.g_tempHigh =  g_tempHigh;
-    settings.g_tempLow = g_tempLow;
+    settings.g_tempHigh =  g_tempHigh+"°F";
+    settings.g_tempLow = g_tempLow+"°F";
     settings.g_currentWeather = g_currentWeather;
+    settings.g_currentCondition = g_currentCondition;
   }else{
-    highElement.text = g_tempHigh +"°C";
-    lowElement.text = g_tempLow +"°C";
+    highElement.text = g_tempHigh+"°C";
+    lowElement.text = g_tempLow+"°C";
     currentWeatherElement.text = g_currentWeather+"°C";
     settings.g_tempHigh =  g_tempHigh;
     settings.g_tempLow = g_tempLow;
     settings.g_currentWeather = g_currentWeather;
+    settings.g_currentCondition = g_currentCondition;
   }
   
   
@@ -580,10 +490,12 @@ function weatherCheck(){
     if(temperatureUnit == 1){
       currentWeatherElement.text = (g_currentWeather* 9/5 +32).toFixed(0)+"°F";
       settings.g_currentWeather = g_currentWeather;
+      settings.g_currentCondition = g_currentCondition;
     
     }else{
       currentWeatherElement.text = g_currentWeather+"°C";
       settings.g_currentWeather = g_currentWeather;
+      settings.g_currentCondition = g_currentCondition;
       
     }
    
@@ -617,8 +529,29 @@ function weatherCheck(){
 
 }
 
-
-
+  switch(g_currentCondition){
+    case 0: weatherIcon.href = "sunny.png";
+            break;
+    case 1: weatherIcon.href = "sun_and_cloud.png";
+            break;
+    case 2: weatherIcon.href = "cloudy.png";
+            break;
+    case 3: weatherIcon.href = "cloudy.png";
+            break;
+    case 4: weatherIcon.href = "sun_and_rain.png";
+            break;
+    case 5: weatherIcon.href = "rainy.png";
+            break;
+    case 6: weatherIcon.href = "thunderstorm.png";
+            break;
+    case 7: weatherIcon.href = "snow.png";
+            break;
+    case 8: weatherIcon.href = "cloudy.png";
+            break;
+    default: weatherIcon.href = "sun_and_cloud.png";
+             break;
+  }  
+  settings.g_currentCondition = g_currentCondition;
 }
 
 
@@ -626,7 +559,7 @@ function weatherCheck(){
 
 // Update the <text> element every tick with the current time
 function updateClock(){
-  
+  weatherCheck();
   let today = new Date(); 
   let hours = today.getHours();
   let minutes = util.zeroPad(today.getMinutes());
@@ -634,9 +567,7 @@ function updateClock(){
   let wday = today.getDay();
   let m = today.getMonth() +1;
   let prefix = lang.substring(0,2);
-  
-  
-  
+   
       //start the hrmonitoring
   hrm.onreading = function() {
       hrElement.text = hrm.heartRate;
